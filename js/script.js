@@ -5,7 +5,7 @@ var colunas = 41, linhas = 21, tam_quadro = 30, vdesconto = 5;
 var M = [];
 //POSIÇÕES INICIAIS DO JOGADOR (QUADRO DE INICIO)
 var posicao_x_jogador = 45, posicao_y_jogador = 15;
-
+var x, y;
 function setup() {
     //CRIAÇÃO DO CANVAS (TELA DO JOGO)
     createCanvas(colunas * tam_quadro, linhas * tam_quadro);
@@ -65,34 +65,41 @@ function draw() {
     }
     //COR DO PERSONAGEM E CRIAÇÃO DA ELIPSE COMO PERNSONAGEM
     fill(255, 255, 255);
-    ellipse(posicao_x_jogador, posicao_y_jogador, tam_quadro - vdesconto, tam_quadro - vdesconto);
+    ellipse(posicao_x_jogador, posicao_y_jogador, tam_quadro-vdesconto, tam_quadro-vdesconto);
 }
 //FUNCAO QUE FERIFICA QUANDO AS TECLAS SE SETA SAO SOLTAS E MOVE O PERSONAGEM POR UM QUADRADO
 function keyReleased() {
-    if ((keyCode === UP_ARROW)) {
+    if ((keyCode === UP_ARROW) && barreiras(0,-30)) {
         posicao_y_jogador -= 30;
         y = -30;
+        x = 0;
     }
-    if ((keyCode === RIGHT_ARROW)) {
+    if ((keyCode === RIGHT_ARROW)&& barreiras(30,0)) {
         posicao_x_jogador += 30;
         x = 30;
+        y = 0;
     }
-    if ((keyCode === LEFT_ARROW)) {
+    if ((keyCode === LEFT_ARROW) && barreiras(-30,0)) {
         posicao_x_jogador -= 30;
         x = -30;
+        y = 0;
     }
-    if ((keyCode === DOWN_ARROW)) {
+    if ((keyCode === DOWN_ARROW) && barreiras(0,30)) {
         posicao_y_jogador += 30;
         y = 30;
+        x = 0;
     }
-    //TESTANDO UMA FORMA DE PROIBIR O PERSONAGEM DE ATRAVESSAR AS PAREDES
-    print("X:" + posicao_x_jogador + " Y:" + posicao_y_jogador);
-    print("M[" + (int((posicao_x_jogador + x - 15) / 30)) + "][" + (int((posicao_y_jogador + y) / 30)) + "]=" + M[int((posicao_x_jogador + x) / 15)][int((posicao_y_jogador + y) / 15)]);
+    //DEBUG POSICAO DO PERSONAGEM
+    //print(int(0.5)); // -10.5
+    print("X:" + (posicao_y_jogador/30) + " Y:" + (posicao_x_jogador/30));
+    print("M[" + int((posicao_y_jogador)/30) + "][" + int((posicao_x_jogador)/30) + "]=" + M[int((posicao_y_jogador) / 30)][int((posicao_x_jogador) / 30)]);
 }
-//TESTANDO UMA FORMA DE PROIBIR O PERSONAGEM DE ATRAVESSAR AS PAREDES
+//PROIBIR O PERSONAGEM DE ATRAVESSAR AS PAREDES
 function barreiras(x, y) {
-    if (M[int((posicao_x_jogador + x) / 15)][int((posicao_y_jogador + y) / 15)] != 0)
+    if(((((posicao_x_jogador+x)/30) >=0 && int((posicao_x_jogador+x)/30)<=40) && (((posicao_y_jogador+y)/30) >=0 && int((posicao_y_jogador+y)/30)<=20))){
+        if (M[int((posicao_y_jogador + y) / 30)][int((posicao_x_jogador + x) / 30)] != 0 )
         return true;
+    }
     else return false;
 }
 
