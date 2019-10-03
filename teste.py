@@ -1,3 +1,5 @@
+#DEPENDENCIAS: p5py -> https://github.com/p5py/p5
+
 from p5 import *
 import numpy as np
 
