@@ -45,11 +45,11 @@ cont=0
 def setup():
     size(colunas * tam_quadro, linhas * tam_quadro)
     no_stroke()
-    background(161, 161, 161)
 
 def drawMaze():
     #CRIAÇÃO DO DESENHO TO LABIRINTO
     if posicao_x_jogador==45 and posicao_y_jogador==15:
+        background(161, 161, 161)
         for i in range (0,colunas):
             for  j in range (0,linhas):
                 x = i * tam_quadro
