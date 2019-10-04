@@ -1,6 +1,8 @@
 #DEPENDENCIAS: p5py -> https://github.com/p5py/p5
 from p5 import *
+from astar import *
 import numpy as np
+
 
 #DEFINIÇÕES DO NUMERO DE COLUNAS E LINHAS, TAMANHO DOS QUADROS(AREA DOS QUADRADOS) DO LABIRINTO E UMA VARIAVEL DE DESCONTO
 #DE TAMANHO PARA O TAMANHO DO PERSONAGEM EM RELACAO AO LABIRINTO
@@ -85,7 +87,12 @@ def drawMaze():
 def draw():
     stroke(0)
     drawMaze()
-    #       print(M[posicao_x_anterior][posicao_y_anterior])
+    start=(0,1)
+    end=(20,40)
+
+    #path(astar(M,start, end))
+    #print(path)
+
     #COR DO PERSONAGEM E CRIAÇÃO DA ELIPSE COMO PERNSONAGEM
 
     fill(255, 255, 255)
