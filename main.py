@@ -1,6 +1,5 @@
 #DEPENDENCIAS: p5py -> https://github.com/p5py/p5
 from p5 import *
-from astar import *
 import numpy as np
 
 
@@ -12,6 +11,7 @@ tam_quadro =30
 vdesconto =5
 x=0
 y=0
+inicial = True
 
 #MATRIZ DO LABIRINTO (0 -> PAREDE, 1-> ESPAÇO LIVRE, 2->SAIDA, 3-ENTRADA)
 M = np.array([
@@ -40,7 +40,7 @@ M = np.array([
 #POSIÇÕES INICIAIS DO JOGADOR (QUADRO DE INICIO)
 posicao_x_jogador = 45
 posicao_y_jogador = 15
-linha=-1;
+linha=-1
 coluna=1
 cont=0
 
@@ -49,8 +49,9 @@ def setup():
     no_stroke()
 
 def drawMaze():
+    global inicial
+    if(inicial):
     #CRIAÇÃO DO DESENHO TO LABIRINTO
-    if posicao_x_jogador==45 and posicao_y_jogador==15:
         background(161, 161, 161)
         for i in range (0,colunas):
             for  j in range (0,linhas):
@@ -62,12 +63,19 @@ def drawMaze():
                     rect((x, y), tam_quadro, tam_quadro)
                 elif (M[j][i] == 2):
                     #DESENHA A POSIÇÃO DE SAIDA "S"
+                    print(j)
+                    print(i)
                     fill(30, 207, 6)
                     rect((x, y), tam_quadro, tam_quadro)
                 elif (M[j][i] == 0):
                     #DESENHA AS PAREDES DO LABIRINTO
                     fill(25)
                     rect((x, y), tam_quadro, tam_quadro)
+                elif (M[j][i] == 1):
+                    #DESENHA OS ESPACOS LIVRES
+                    fill(161, 161, 161)
+                    rect((x, y), tam_quadro, tam_quadro)
+                inicial = False
     else:
         x = coluna * tam_quadro
         y = linha * tam_quadro
@@ -81,20 +89,16 @@ def drawMaze():
             rect((x, y), tam_quadro, tam_quadro)
         elif (M[linha][coluna] == 1):
             #DESENHA A POSIÇÃO ANTERIOR DE ESPAÇO LIVRE
-            fill(161,161,161)
+            stroke(0)
+            fill(52, 222, 235)
             rect((x, y), tam_quadro, tam_quadro)
 
 def draw():
     stroke(0)
     drawMaze()
-    start=(0,1)
-    end=(20,40)
-
-    #path(astar(M,start, end))
-    #print(path)
-
+    #       print(M[posicao_x_anterior][posicao_y_anterior])
     #COR DO PERSONAGEM E CRIAÇÃO DA ELIPSE COMO PERNSONAGEM
-
+    stroke(0)
     fill(255, 255, 255)
     ellipse((posicao_x_jogador, posicao_y_jogador), tam_quadro-vdesconto, tam_quadro-vdesconto)
 
