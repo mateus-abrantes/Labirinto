@@ -53,7 +53,7 @@ def astar(maze, start, end):
             while current is not None:
                 path.append(current.position)
                 current = current.parent
-            return path[::-1], lista[::1]  # Return reversed path
+            return path[::-1], lista[::1]  # Retorna o path contendo o melhor caminho e a lista com as iteracoes do A*
 
         # Gera filho
         children = []
@@ -63,11 +63,11 @@ def astar(maze, start, end):
             node_position = (
                 current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
 
-            # Verifica-se de esta dentro do alcance
+            # Verifica se esta dentro do alcance
             if node_position[0] > (len(maze) - 1) or node_position[0] < 0 or node_position[1] > (len(maze[len(maze)-1]) - 1) or node_position[1] < 0:
                 continue
 
-            # Verifica-se se a posicao é acessíveis
+            # Verifica se a posicao é acessível
             if maze[node_position[0]][node_position[1]] == 0:
                 continue
 
@@ -77,10 +77,10 @@ def astar(maze, start, end):
             # Adiciona
             children.append(new_node)
 
-        # Loop percorrendo as crianças
+        # Loop percorrendo os filhos
         for child in children:
 
-            # A criança está na lista fechada
+            # O filho está na lista fechada
             if len([closed_child for closed_child in closed_list if closed_child == child]) > 0:
                 continue
 
