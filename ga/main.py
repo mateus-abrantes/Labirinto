@@ -1,5 +1,4 @@
 import random
-from helpers import summarize
 from cromossomos import *
 from p5 import *
 import numpy as np
@@ -17,7 +16,7 @@ path = []
 analise = []
 i = 0
 inicial = True
-demonstracaoa = True
+demonstracao = True
 
 
 # MATRIZ DO LABIRINTO (0 -> PAREDE, 1-> ESPAÇO LIVRE, 2->SAIDA, 3-ENTRADA)
@@ -69,20 +68,24 @@ def timeIt():
 
 # FUNCAO QUE FAZ A AUTOMATIZACAO DO PERSONAGEM E DA ITERACAO DO ALGORITMO A*
 def increment():
-    global posicao_y_jogador, posicao_x_jogador,target, analise
+    global posicao_y_jogador, posicao_x_jogador,target, analise,demonstracao
     x,y=(0,0)
     # DEMOSTRACAO DA ITERACAO DO A*
-    for i in range(0,len(analise)):
-        if(i<len(analise)-99):
-            fill(random.randint(0,255), random.randint(0,255), random.randint(0,255))
-            x,y = analise[i]
-            rect((x*tam_quadro,
-            y*tam_quadro), tam_quadro, tam_quadro)
-        else:
-            fill(52, 222, 235)
-            x,y = path[i]
-            rect((x*tam_quadro,
-            y*tam_quadro), tam_quadro, tam_quadro)
+    if(demonstracao and timeIt()):
+        for i in range(0,len(analise)):
+            for j in range(0,99):
+                if(timeIt()):
+                    fill(random.randint(0,255), random.randint(0,255), random.randint(0,255))
+                    x,y = analise[i][j]
+                    rect((y*tam_quadro,x*tam_quadro), tam_quadro, tam_quadro)
+        demonstracao=False
+    else:
+        for i in range(0,99):
+            if(timeIt()):
+                fill(52, 222, 235)
+                x,y = path[i]
+                rect((y*tam_quadro, x
+                      * tam_quadro), tam_quadro, tam_quadro)
     # AUTOMATIZACAO DO PERSONAGEM PELO MELHOR CAMINHO RETORNADO PELO A*
 
 def drawMaze():
@@ -135,10 +138,10 @@ def draw():
     #       print(M[posicao_x_anterior][posicao_y_anterior])
     # COR DO PERSONAGEM E CRIAÇÃO DA ELIPSE COMO PERNSONAGEM
     stroke(0)
-    increment()
-    fill(255, 255, 255)
     ellipse((posicao_x_jogador, posicao_y_jogador),
             tam_quadro-vdesconto, tam_quadro-vdesconto)
+    increment()
+    fill(255, 255, 255)
 
 
 run()

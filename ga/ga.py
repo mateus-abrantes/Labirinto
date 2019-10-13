@@ -1,6 +1,6 @@
 import random
-from helpers import summarize
 from cromossomos import *
+from termcolor import colored
 
 def ga(target, tam):
     # Definição da população
@@ -8,6 +8,8 @@ def ga(target, tam):
     melhorScore = 0
     geracao = 1
     aux = []
+
+    print("Geração: ", geracao)
 
     """
         A variável cont será responsável
@@ -58,6 +60,11 @@ def ga(target, tam):
             if pais[i].fitness > melhorScore:
                 melhorScore = pais[i].fitness
                 aux.append(pais[i].path)
+                if melhorScore<99:
+                    print("Score: ",colored(melhorScore, "red"), "/",colored(len(target), "green"))
+                else:
+                    print("Score: ",colored(melhorScore, "green"), "/",colored(len(target), "green"))
+
 
         """
             Se não há candidatos, gera-se uma nova população
@@ -78,6 +85,4 @@ def ga(target, tam):
 
             populacao.append(filho)
         geracao += 1
-        print(geracao)
-        caminho= populacao.path
-        return caminho, aux
+    return aux[len(aux)-1], aux
